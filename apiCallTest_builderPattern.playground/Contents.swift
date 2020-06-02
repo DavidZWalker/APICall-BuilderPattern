@@ -2,7 +2,7 @@ import UIKit
 
 let apiCall = APICallBuilder()
     .baseUrl(url: "https://www.thecocktaildb.com/api/json/v1/1/search.php")
-    .withQueryParameter(key: "s", value: "Jack")
+    .addQueryParameter(paramName: "s", paramValue: "Jack")
     .onDataReceived(dataHandler: {
         data in
         do {

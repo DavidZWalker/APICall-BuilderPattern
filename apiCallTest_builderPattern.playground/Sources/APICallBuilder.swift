@@ -27,8 +27,8 @@ public class APICallBuilder {
         return self
     }
     
-    public func withQueryParameter(key: String, value: String) -> APICallBuilder {
-        self.queryParameters[key] = value
+    public func addQueryParameter(paramName: String, paramValue: String) -> APICallBuilder {
+        self.queryParameters[paramName] = paramValue
         return self
     }
     
