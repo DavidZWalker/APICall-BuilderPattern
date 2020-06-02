@@ -10,6 +10,7 @@ import Foundation
 
 public class APICallBuilder {
     private var baseUrl : String
+    private var requestMethod : HTTPRequestMethods
     private var queryParameters : [String:String]
     private var errorHandler : (Error?) -> Void = { _ in }
     private var responseHandler : (URLResponse?) -> Void = { _ in }
@@ -18,6 +19,7 @@ public class APICallBuilder {
     public init() {
         baseUrl = ""
         queryParameters = [String:String]()
+        requestMethod = .GET
     }
     
     public func baseUrl(url: String) -> APICallBuilder {
@@ -45,6 +47,11 @@ public class APICallBuilder {
         return self
     }
     
+    public func setRequestMethod(requestMethod: HTTPRequestMethods) -> APICallBuilder {
+        self.requestMethod = requestMethod
+        return self
+    }
+    
     public func build() -> APICall {
         
         // build url string and completion handler for the api call
@@ -53,7 +60,9 @@ public class APICallBuilder {
         
         // create URL and URLRequest
         let url = URL(string: endpointString)!
-        let urlReq = URLRequest(url: url)
+        var urlReq = URLRequest(url: url)
+        urlReq.httpMethod = requestMethod == .GET ? "GET" : "POST"
+        
         
         // create and return APICall
         return APICall(endpoint: urlReq, completionHandler: requestCompletionHandler)
