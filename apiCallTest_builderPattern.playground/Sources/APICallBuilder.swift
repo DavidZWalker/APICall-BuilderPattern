@@ -28,7 +28,8 @@ public class APICallBuilder {
     }
     
     public func addQueryParameter(paramName: String, paramValue: String) -> APICallBuilder {
-        self.queryParameters[paramName] = paramValue
+        let encodedParamValue = paramValue.encodeRFC3986()
+        self.queryParameters[paramName] = encodedParamValue
         return self
     }
     
